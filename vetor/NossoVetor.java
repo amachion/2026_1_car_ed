@@ -1,4 +1,6 @@
- public class NossoVetor {
+import java.util.Random;
+
+public class NossoVetor {
     private int[] v;
     private int capacidade;
     private int ocupacao;
@@ -35,16 +37,29 @@
     //     //ocupacao++;
     //     return true;
     // }
-    private void dobra () {
-        int[] temp = new int[capacidade * 2];
-        for (int i=0; i<ocupacao; i++) {
+    // private void dobra () {
+    //     int[] temp = new int[capacidade * 2];
+    //     for (int i=0; i<ocupacao; i++) 
+    //         temp[i] = v[i];
+    //     v = temp;
+    //     capacidade = capacidade * 2;
+    // }
+    // private void reduzMetade () {
+    //     int[] temp = new int[capacidade / 2];
+    //     for (int i=0; i<ocupacao; i++)
+    //         temp[i] = v[i];
+    //     v = temp;
+    //     capacidade = capacidade / 2;
+    // }
+    private void redimensiona (int novaCapacidade) {
+        int[] temp = new int[novaCapacidade];
+        for (int i=0; i<ocupacao; i++)
             temp[i] = v[i];
-        }
         v = temp;
-        capacidade = capacidade * 2;
+        capacidade = novaCapacidade;
     }
     public void adiciona (int e) {
-        if (estaCheio3()) dobra();
+        if (estaCheio3()) redimensiona(capacidade * 2);
         v[ocupacao++] = e;
     }
     public boolean estaVazio () {
@@ -53,15 +68,42 @@
     public int remove () {
         if (estaVazio()) return -1;
         // ocupacao--;
-        return v[--ocupacao];
+        int aux = v[--ocupacao];
+        if (capacidade >= 10 && ocupacao <= capacidade / 4) 
+            redimensiona(capacidade / 2);
+        return aux;
     }
-
     @Override
     public String toString() {
-        if (estaVazio()) return "vetor vazio\n";
+        if (estaVazio()) return "vetor vazio com capacidade " + capacidade + "\n";
         String s = "capacidade = " + capacidade + ", ocupacao = " + ocupacao + "\n";
         for (int i=0; i < ocupacao; i++) 
             s = s + v[i] + " ";
         return s + "\n";
+    }
+    public void preencheVetor () {
+        Random random = new Random();
+        for (int i=0; i<capacidade; i++)
+            v[i] = random.nextInt(10 * capacidade);
+        ocupacao = capacidade;
+    }
+    public boolean buscaLinear (int x) {
+        for (int i=0; i<ocupacao; i++) {
+            if (v[i] == x) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void bubble () {
+        for (int i=1; i < capacidade; i++) {
+            for (int j=0; j < capacidade - i; j++) {
+                if (v[j] > v[j+1]) {
+                    int temp = v[j];
+                    v[j] = v[j+1];
+                    v[j+1] = temp;
+                }
+            }
+        }
     }
 }

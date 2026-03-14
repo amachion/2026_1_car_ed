@@ -5,5 +5,9 @@ public class OutroTeste {
             v.adiciona(i);
             System.out.println(v);
         }
+        while (!v.estaVazio()) {
+            System.out.println(v.remove());
+            System.out.println(v);            
+        }
     }
 }
