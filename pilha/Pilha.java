@@ -20,7 +20,6 @@ public class Pilha {
     public int tamanho() {
         return topo;
     }
-
     public boolean empilha(int i) {
         if (estaCheia()) {
             return false;
@@ -38,5 +37,13 @@ public class Pilha {
             return dados[--topo];
         }
     }
-
+    @Override
+    public String toString () {
+        if (estaVazia()) return "pilha vazia";
+        String s = "";
+        for (int i=capacidade; i >= 0; i--) {
+            s += dados[i] + " ";
+        }
+        return s;
+    }
 }

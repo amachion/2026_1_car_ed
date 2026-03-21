@@ -25,4 +25,13 @@ public class PilhaCartas {
         if (estaVazia()) return null;
         return dados[--topo];
     }
+    @Override
+    public String toString () {
+        if (estaVazia()) return "pilha vazia";
+        String s = "";
+        for (int i=topo-1; i >= 0; i--) {
+            s += dados[i] + "\n";
+        }
+        return s;
+    }
 }
