@@ -106,4 +106,47 @@ public class NossoVetor {
             }
         }
     }
+    private int partition (int p, int r) {
+        int x = v[r];
+        int i = p-1;
+        for (int j = p; j < r; j++)
+            if (v[j] <= x) {
+                int aux = v[j];
+                v[j] = v[++i];
+                v[i] = aux;
+            }
+        v[r] = v[++i];
+        v[i] = x;
+        return i;
+    }
+    private void quick (int p, int r) {
+        //System.out.print("p = " + p + ", r = " + r);
+        if (p < r) {
+            int q = partition(p, r);
+            //System.out.println(", q = " + q);
+            quick(p, q-1);
+            quick(q+1, r);
+        }
+        //System.out.println();
+    }
+    public void quicksort() {
+        quick(0, capacidade-1);
+    }
+    public void insertion () {
+        for (int i=1; i < capacidade; i++) {
+            int x = v[i];
+            int j=i-1;
+            while (j >= 0 && v[j] > x) {
+                v[j+1] = v[j];
+                j--;
+            }
+            v[j+1] = x;
+        }
+    }
 }
+
+
+
+
+
+
